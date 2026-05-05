@@ -2,32 +2,12 @@ import sqlite3
 
 def create_tables():
     conn = sqlite3.connect("nba_predictor.db")
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS players (
-            player_id INTEGER PRIMARY KEY,
-            name TEXT,
-            team_id INTEGER
-        )
-    """)
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS games (
-            game_id TEXT PRIMARY KEY,
-            date TEXT,
-            home_team_id INTEGER,
-            away_team_id INTEGER,
-            season INTEGER
-        )
-    """)
-
-    cursor.execute("""
+    c = conn.cursor()
+    c.execute("""
         CREATE TABLE IF NOT EXISTS gamelogs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             player_id INTEGER,
             game_id TEXT,
-            team_id INTEGER,
             is_home INTEGER,
             points INTEGER,
             rebounds INTEGER,
@@ -38,9 +18,9 @@ def create_tables():
             minutes REAL,
             fg_pct REAL,
             fantasy_points REAL,
-            days_rest INTEGER,
+            days_rest REAL,
             travel_distance REAL,
-            opp_def_rating REAL
+            UNIQUE(player_id, game_id)
         )
     """)
 
