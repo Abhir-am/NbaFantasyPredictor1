@@ -18,4 +18,4 @@ def calculate_fantasy_points(row):
 
     return pts + reb + ast + stl + blk + tov + double_double + triple_double
 
-#DRAFTKINGS CALCULATIONS
+# DRAFTKINGS CALCULATIONS

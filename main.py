@@ -10,6 +10,7 @@ from data.fantasyPoints import calculate_fantasy_points
 from data.context_features import add_context_features
 from features.build_features import build_features
 from models.knn import train_knn
+from models.random_forest import train_rf
 
 create_tables()
 
@@ -50,7 +51,13 @@ X_all_scaled = scaler.transform(X_all)
 df["knn_pred"] = knn.predict(X_all_scaled)
 print("KNN MAE:", mean_absolute_error(y_test, preds))
 
-# SEARCH FUNCTION
+# TRAIN RANDOM FOREST
+rf, X_test_rf, y_test_rf, rf_preds = train_rf(df)
+df["rf_pred"] = rf.predict(X_all)
+print("Random Forest MAE:",
+      mean_absolute_error(y_test_rf, rf_preds))
+
+# SEARCH FUNCTION (Search any player - compares model with real stats)
 def search_player():
     name = input("Player name: ").strip()
     results = nba_players.find_players_by_full_name(name)
@@ -67,8 +74,12 @@ def search_player():
         return
     actual = player_df["fantasy_points"].values[:50]
     knn_line = player_df["knn_pred"].values[:50]
+    rf_line = player_df["rf_pred"].values[:50]
+
+    # PLOTS (Visualization)
     plt.figure(figsize=(12,6))
     plt.plot(knn_line, label="KNN Prediction", linewidth=3)
+    plt.plot(rf_line, label="Random Forest Prediction", linewidth=3)
     plt.plot(actual, label="Actual", linestyle="--")
     plt.title(player_name + " 2024-2025")
     plt.xlabel("Game")

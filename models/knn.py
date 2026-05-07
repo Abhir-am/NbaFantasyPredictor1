@@ -11,7 +11,7 @@ def train_knn(df):
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, shuffle=False
     )
-    scaler = StandardScaler() #SCALES ALL THE DATA - Makes some features irrelevant
+    scaler = StandardScaler() # SCALES ALL THE DATA - Makes some features irrelevant
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
     knn = KNeighborsRegressor(n_neighbors=10)

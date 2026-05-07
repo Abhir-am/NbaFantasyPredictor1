@@ -6,13 +6,13 @@ from nba_api.stats.static import players
 def get_player_gamelogs(player_id, season="2024-25"):
     log = playergamelog.PlayerGameLog(player_id=player_id, season=season)
     df = log.get_data_frames()[0]
-    time.sleep(0.6)  # avoid rate limiting
+    time.sleep(0.6)  # Avoid rate limiting
     return df
 def get_all_player_logs(season="2024-25"):
     all_players = players.get_active_players()
     all_logs = []
     for i, player in enumerate(all_players):
-        #Fetch every player
+        # Fetch every player
         print(i+1, "/", len(all_players), "-", player["full_name"])
         try:
             df = get_player_gamelogs(player["id"], season)
