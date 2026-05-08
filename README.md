@@ -33,4 +33,29 @@ I also learned how important proper preprocessing and database management are in
 
 Future improvements for this project could include adding injury reports, opponent defensive ratings, player usage rates, and live game updates to improve prediction accuracy even further.
 
+## How To Run
 
+Clone the repository:
+
+```bash
+git clone https://github.com/Abhir-am/NbaFantasyPredictor1.git
+cd NbaFantasyPredictor1
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the project:
+
+```bash
+python main.py
+```
+
+The program will:
+- Fetch and process NBA game log data
+- Train the KNN and Random Forest models
+- Calculate fantasy basketball predictions
+- Generate visualizations for searched NBA players
